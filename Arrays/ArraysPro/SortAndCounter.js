@@ -34,11 +34,29 @@ Output:
 }
  */
 
-function counterNumbers(numbers) {
+function counterNumbersNoJala(numbers) {
     return numbers.sort((a, b) => a - b).reduce((prev, cur) => ((prev[cur] = prev[cur] + 1 || 1), prev), {})
 }
+function counterNumbersOptimizada(numbers) {
+    return numbers.sort((a, b) => a - b).reduce((prev, cur) =>
+        ((prev[cur] ?  prev[cur] += 1 : prev[cur] = 1), prev), {})
+}
+
+function counterNumbers(numbers) {
+    return numbers.reduce((obj, item) => {
+        if (obj[item]) {
+            obj[item] += 1;
+        } else {
+            obj[item] = 1;
+        }
+        return obj;
+    }, {});
+}
+
+
 console.log(counterNumbers([1,2,2,3,3,3]))
 console.log(counterNumbers([1, 2, -3, -1, 2, 4, 4, 1, 45, -1]))
+console.log(counterNumbers([-1,-1,-3,1,1,2,2,-4,-4,-4,4,4,45,5]))
 
 /*
 Should return an object with numbers
